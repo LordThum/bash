@@ -8,7 +8,7 @@ done
 
 
 apt update && apt upgrade -y
-apt install -y curl
+apt install -y curl git
 
 # install k3s
 curl -sfL https://get.k3s.io | sh -
@@ -32,6 +32,7 @@ helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 helm repo update
 
 # install cert manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.11.01
 
 # install rancher
