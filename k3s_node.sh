@@ -1,7 +1,15 @@
+while getopts h:p: flag
+do
+    case "${flag}" in
+        u) url=${OPTARG};;
+        t) token=${OPTARG};;
+    esac
+done
+
+# update ind install curl
 apt update && apt upgrade -y
 apt install -y curl 
 
-# lxc configuration
-
-
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.60:6443 K3S_TOKEN=K1023a3b7e7fbe59c0df716d8262bfa1b2d40e81d74268f83e07470ebf220254eb6::server:165549a433c38c8b1ee9b8b017b4d7a3 sh -
+ # install k3s node with master url and token 
+ # dont forget port 6443 on in url
+curl -sfL https://get.k3s.io | K3S_URL=$url K3S_TOKEN=$token sh -
