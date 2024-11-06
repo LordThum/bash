@@ -1,15 +1,19 @@
 apt update && apt upgrade -y
-apt install -y curl 
+apt install -y curl
+
+# install k3s
 curl -sfL https://get.k3s.io | sh -
 
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+# chmod 700 get_helm.sh
+# ./get_helm.sh
 
-# wget -O - https://github.com/helm/helm/raw/refs/heads/main/scripts/get-helm-3 | sh
+# install helm
+wget -O - https://github.com/helm/helm/raw/refs/heads/main/scripts/get-helm-3 | sh
 
 # set env variable for kubeconfig
-echo "KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> /etc/environment
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+chmod 755 /etc/rancher/k3s/k3s.yaml
 
 # create namespaces
 kubectl create namespace cert-manager
