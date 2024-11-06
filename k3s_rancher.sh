@@ -1,15 +1,22 @@
+while getopts h:p: flag
+do
+    case "${flag}" in
+        h) hostname=${OPTARG};;
+        p) password=${OPTARG};;
+    esac
+done
+
+
 apt update && apt upgrade -y
 apt install -y curl
 
 # install k3s
 curl -sfL https://get.k3s.io | sh -
 
-# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-# chmod 700 get_helm.sh
-# ./get_helm.sh
-
 # install helm
-wget -O - https://github.com/helm/helm/raw/refs/heads/main/scripts/get-helm-3 | sh
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 
 # set env variable for kubeconfig
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
@@ -30,5 +37,5 @@ helm install cert-manager jetstack/cert-manager --namespace cert-manager --versi
 # install rancher
 helm install rancher rancher-stable/rancher \
   --namespace rancher \
-  --set hostname=192.168.1.65 \
-  --set bootstrapPassword=admin
+  --set hostname=$hostname \
+  --set bootstrapPassword=$password
