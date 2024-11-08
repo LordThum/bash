@@ -76,6 +76,9 @@ install_rancher() {
 start() {
     create_container
     lxc_preconfig
+
+    sleep 10 &
+    
     install_k3s
 
     if ! (whiptail --backtitle "K3S" --title "Rancher" --yesno "Do You want to install Rancher?" 10 58); then
