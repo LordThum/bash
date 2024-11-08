@@ -1,3 +1,5 @@
+#!/bin/bash
+
 preconfig() {
     printf "lxc.apparmor.profile: unconfined \nlxc.cgroup.devices.allow: a \nlxc.cap.drop: \nlxc.mount.auto: "proc:rw sys:rw"" >> /etc/pve/lxc/$CID.conf
 
