@@ -8,17 +8,19 @@ start() {
 }
 
 default_settings() {
+    CID=$(pvesh get /cluster/nextid)
+    ROOTPW=$(whiptail --backtitle "Create LXC" --passwordbox "Set Root Password" 8 58 --title "Root Password" 3>&1 1>&2 2>&3)
     clear
-    pct create 120 /var/lib/vz/template/cache/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+
+    pct create $CID /var/lib/vz/template/cache/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     -arch amd64 \
     -ostype ubuntu \
-    -hostname lxc-test \
     -cores 1 \
     -memory 512 \
     -swap 0 \
     -storage local-lvm \
     -rootfs local-lvm:10 \
-    -password admin \
+    -password $ROOTPW \
     -net0 name=eth0,bridge=vmbr0,ip=dhcp
 }
 
