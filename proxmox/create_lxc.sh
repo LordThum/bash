@@ -1,3 +1,5 @@
+CID=0
+
 start() {
     if ! (whiptail --backtitle "Proxmox VE Helper Scripts" --title "APP LXC" --yesno "This will create a New APP LXC. Proceed?" 10 58); then
       clear
