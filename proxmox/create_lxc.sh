@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CID=0
 
 start() {
